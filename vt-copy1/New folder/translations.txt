@@ -1,0 +1,57 @@
+Original (te): ఏం చేస్తున్నావురా
+Translated (ar): ماذا تفعل
+
+Original (te): ఎలా ఉన్నావ్ రా
+Translated (ar): كيف حالك؟
+
+Original (mr): क्या कर रहे हो
+Translated (ar): ماذا تفعل
+
+Original (en): Hi how are
+Translated (te): నమస్కారం ... ఎలా ఉన్నారు
+
+Original (en): hello how are you
+Translated (te): హలో మీరు ఎలా ఉన్నారు
+
+Original (te): హలో ఏం చేస్తున్నావ్ రా
+Translated (en): Hello what are you doing
+
+Original (en): hi what are you doing
+Translated (te): హాయ్ మీరు ఏమి చేస్తున్నారు
+
+Original (en): how are you
+Translated (te): మీరు ఎలా ఉన్నారు
+
+Original (en): hi how are you
+Translated (te): హాయ్ మీరు ఎలా ఉన్నారు
+
+Original (en): how are you
+Translated (te): మీరు ఎలా ఉన్నారు
+
+Original (cy): hi how are you
+Translated (te): హాయ్ మీరు ఎలా ఉన్నారు
+
+Original (es): audible to you
+Translated (te): మీకు వినవచ్చు
+
+Original (te): చేస్తున్నావురా
+Translated (en): Do you doing
+
+Original (te): జబర్దస్త్
+Translated (en): Jabardast
+
+Original (en): hello how are you
+Translated (ta): வணக்கம் எப்படி இருக்கிறாய்
+
+Original (en): today's time in
+Translated (te): నేటి సమయం
+
+Original (te): ఎలా ఉన్నావ్ రా
+Translated (en): How are you?
+
+Original (en): hi how are you
+Translated (te): హాయ్ మీరు ఎలా ఉన్నారు
+
+Original (en): Star Sports 1 character data to store The Automatic values with the maximum size of 2000 price default a maximum size of one month
+Translated (te): స్టార్ స్పోర్ట్స్ 1 అక్షర డేటా స్వయంచాలక విలువలను గరిష్ట పరిమాణంతో 2000 ధరతో నిల్వ చేయడానికి ఒక నెల గరిష్ట పరిమాణం డిఫాల్ట్
+

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Translation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background: #47289d;
+            color: #333;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        h2 {
+            margin-top: 30px;
+            font-size: 2em;
+        }
+        
+h1{
+    margin: 0%;
+    padding: 0%;
+    color: #111;
+    font-size: 12mm;
+    align-items: center;
+    margin-left: 200px;
+}
+
+
+
+h1 span{
+    display: table-cell;
+    margin: 20px;
+    padding: 2rem;
+    animation: animate 2s ease infinite;
+}
+
+
+@keyframes animate{
+    0%,100%{
+        color: #fff;
+        filter: blur(2px);
+        text-shadow: 0 0 10px #ff9d00,
+        0 0 20px #ff9d00,
+        0 0 400px #ff9d00,
+        0 0 80px #ff9d00,
+        0 0 120px #ff9d00,
+        0 0 200px #ff9d00,
+        0 0 300px #ff9d00,
+        0 0 400px #ff9d00;
+    } 
+    5%,90%{
+        color: #111;
+        filter: blur(0px);
+        text-shadow: none;
+    }
+}
+
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        select, button {
+            margin: 10px 0;
+            border-radius: 15px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        select {
+            background-color: #f9f9f9;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        #translationForm {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #swapButton {
+            margin: 10px 0;
+            background-color: #FFA500;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 1em;
+        }
+        #swapButton:hover {
+            background-color: #cc8400;
+        }
+        #translated_audio {
+            display: block;
+            margin: 20px 0;
+            width: 100%;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            body {
+                margin: 10px;
+            }
+            form {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <span>T</span>
+        <span>R</span>
+        <span>A</span>
+        <span>N</span>
+        <span>S</span>
+        <span>L</span>
+        <span>A</span>
+        <span>T</span>
+        <span>O</span>
+        <span>R</span>
+    </h1>
+    <form id="translationForm">
+        <label for="input_language">Input Language:</label>
+        <select id="input_language" name="input_language">
+            {% for code, name in languages.items() %}
+                <option value="{{ code }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="button" id="swapButton" onclick="swapLanguages()">Swap Languages</button>
+
+        <label for="target_language">Target Language:</label>
+        <select id="target_language" name="target_language">
+            {% for code, name in languages.items() %}
+                <option value="{{ code }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <button type="button" onclick="startTranslation()" class="btn-101"><b>TRANSLATE</b>
+            <svg>
+                <defs>
+                  <filter id="glow">
+                    <fegaussianblur result="coloredBlur" stddeviation="5"></fegaussianblur>
+                    <femerge>
+                      <femergenode in="coloredBlur"></femergenode>
+                      <femergenode in="coloredBlur"></femergenode>
+                      <femergenode in="coloredBlur"></femergenode>
+                      <femergenode in="SourceGraphic"></femergenode>
+                    </femerge>
+                  </filter>
+                </defs>
+                <rect />
+              </svg>
+              <style>
+                .btn-101,
+                .btn-101 *,
+                .btn-101 :after,
+                .btn-101 :before,
+                .btn-101:after,
+                .btn-101:before {
+                  border: 0 solid;
+                  box-sizing: border-box;
+                }
+                .btn-101 {
+                  -webkit-tap-highlight-color: transparent;
+                  -webkit-appearance: button;
+                  background: none;
+                  background-image: none;
+                  color:crimson ;
+                  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+                    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+                  font-size: 100%;
+                  font-weight: 900;
+                  line-height: 1.5;
+                  margin: 0;
+                  -webkit-mask-image: -webkit-radial-gradient(#000, crimson);
+                  padding: 0;
+                  text-transform: uppercase;
+                }
+                .btn-101:disabled {
+                  cursor: default;
+                }
+                .btn-101:-moz-focusring {
+                  outline: auto;
+                }
+                .btn-101 svg {
+                  vertical-align: middle;
+                }
+                .btn-101 [hidden] {
+                  display: none;
+                }
+                .btn-101 {
+                  --thickness: 0.3rem;
+                  --roundness: 1.2rem;
+                  --color: crimson;
+                  --opacity: 0.6;
+                  -webkit-backdrop-filter: blur(100px);
+                  backdrop-filter: blur(100px);
+                  background-color: #47289d;
+                  background: hsla(0, 0%, 100%, 0.2);
+                  border: none;
+                  border-radius: var(--roundness);
+                  color: var(--color);
+                  cursor: pointer;
+                  display: block;
+                  font-family: Poppins, "sans-serif";
+                  font-size: 1rem;
+                  font-weight: 500;
+                  padding: 0.8rem 3rem;
+                  position: relative;
+                }
+                .btn-101:hover {
+                  background: hsla(0, 0%, 100%, 0.3);
+                  filter: brightness(1.2);
+                }
+                .btn-101:active {
+                  --opacity: 0;
+                  background: hsla(0, 0%, 100%, 0.1);
+                }
+                .btn-101 svg {
+                  border-radius: var(--roundness);
+                  display: block;
+                  filter: url(#glow);
+                  height: 100%;
+                  left: 0;
+                  position: absolute;
+                  top: 0;
+                  width: 100%;
+                }
+                .btn-101 rect {
+                  fill: none;
+                  stroke: var(--color);
+                  stroke-width: var(--thickness);
+                  rx: var(--roundness);
+                  stroke-linejoin: round;
+                  stroke-dasharray: 185%;
+                  stroke-dashoffset: 80;
+                  -webkit-animation: snake 2s linear infinite;
+                  animation: snake 2s linear infinite;
+                  -webkit-animation-play-state: paused;
+                  animation-play-state: paused;
+                  height: 100%;
+                  opacity: 0;
+                  transition: opacity 0.2s;
+                  width: 100%;
+                }
+                .btn-101:hover rect {
+                  -webkit-animation-play-state: running;
+                  animation-play-state: running;
+                  opacity: var(--opacity);
+                }
+                @-webkit-keyframes snake {
+                  to {
+                    stroke-dashoffset: 370%;
+                  }
+                }
+                @keyframes snake {
+                  to {
+                    stroke-dashoffset: 370%;
+                  }
+                }
+                </style>
+        </button>
+
+    </form>
+    
+    
+
+    <h2 ><font color="black">Translation Result</font></h2>
+    <font color="black"><p><strong>Original Text:</strong> <span id="original_text"></span></p></font>
+    <font color="black"> <p><strong>Translated Text:</strong> <span id="translated_text"></span></p></font>
+    <audio id="translated_audio" controls></audio>
+       <script>
+        function swapLanguages() {
+            const inputLanguage = document.getElementById('input_language');
+            const targetLanguage = document.getElementById('target_language');
+
+            const tempValue = inputLanguage.value;
+            inputLanguage.value = targetLanguage.value;
+            targetLanguage.value = tempValue;
+        }
+
+        function startTranslation() {
+            const form = document.getElementById('translationForm');
+            const formData = new FormData(form);
+
+            fetch('/translate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    document.getElementById('original_text').innerText = data.original_text;
+                    document.getElementById('translated_text').innerText = data.translated_text;
+                    const audio = document.getElementById('translated_audio');
+                    audio.src = data.audio_file;
+                    audio.load();
+                    audio.play();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
